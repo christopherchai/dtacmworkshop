@@ -67,5 +67,5 @@
         url: "{{dtcommentapiurl}}"
         method: POST
         body_format: json
-        body: "{ \"comment\": \"Invoked remediation action failed. \", \"user\": \"{{commentuser}}\", \"context\": \"Ansible Tower\" }"
+        body: "{ \"comment\": \"Invoked remediation action failed. \", \"user\": \"Johan Liauw\", \"context\": \"Ansible Tower\" }"
       when: state == "OPEN" and (result.status != 200 and result.status != 201 and result.status != 202)
