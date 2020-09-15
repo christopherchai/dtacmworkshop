@@ -11,6 +11,14 @@
         url: "{{dtcommentapiurl}}"
         method: POST
         body_format: json
+        body: "{ \"comment\": \"Ticket opened, ticket number SD10411\", \"user\": \"Incident Management Team\", \"context\": \"HP Service Manager\" }"
+      when: state == "OPEN"
+      
+    - name: push comment to dynatrace
+      uri:
+        url: "{{dtcommentapiurl}}"
+        method: POST
+        body_format: json
         body: "{ \"comment\": \"Caused by changing configuration on host 34.123.174.1. Remediation playbook Infra_Config_123456 started.\", \"user\": \"Johan Liauw\", \"context\": \"Ansible Tower\" }"
       when: state == "OPEN"
 
@@ -60,6 +68,14 @@
         method: POST
         body_format: json
         body: "{ \"comment\": \"Remediation action successfully executed. Reverted to previous configuration; work with Mehmet Balkan (abc@ocbc.com) on failure analysis.\", \"user\": \"{{commentuser}}\", \"context\": \"Ansible Tower\" }"
+      when: state == "OPEN" and (result.status == 200 or result.status == 201 or result.status == 202)
+      
+    - name: push success comment to dynatrace
+      uri:
+        url: "{{dtcommentapiurl}}"
+        method: POST
+        body_format: json
+        body: "{ \"comment\": \"Incident resolved, closed ticket number SD10411. \", \"user\": \"Incident Management Team\", \"context\": \"HP Service Manager\" }"
       when: state == "OPEN" and (result.status == 200 or result.status == 201 or result.status == 202)
 
     - name: push error comment to dynatrace
