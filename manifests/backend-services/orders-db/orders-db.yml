@@ -21,7 +21,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: orders-db
+      name: orders-db
   strategy:
     type: Recreate
   template:
@@ -101,7 +101,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: orders-db
+      name: orders-db
   strategy:
     type: Recreate
   template:
